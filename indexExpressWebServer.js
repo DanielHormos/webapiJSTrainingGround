@@ -1,13 +1,12 @@
 const express = require('express');
 const app = express();
+const morgan = require('morgan')
+
+app.use(morgan('tiny'))
+app.use(express.static('static'))
 
 app.get('/', (req, res) => {
-    const dev = {
-        id: 1,
-        name: 'Daniel Dev',
-        email: 'Daniel.Hormos@outlook.com'
-    }
-  res.json(dev);
+  res.send('Hello fellow developer!');
 });
 
 const port = 3000
