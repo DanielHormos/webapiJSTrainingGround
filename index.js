@@ -1,44 +1,13 @@
-const http = require('http')
-const fs = require('fs')
+const express = require('express');
+const app = express();
 
-const server = http.createServer((req, res) => {
-    console.log(res)
-    console.log(`The URL for the request was '${req.url}'`)
-    console.log(`The Method for the request was '${req.method}'`)
+app.use(express.static('static'))
 
-    const fileName = fileNameOfUrl(req.url)
-    if(fileName === 'favicon.ico'){
-        res.statusCode = 404
-        res.end('')
-        return
-    }
-    const content = getFileOr404(fileName)
-    
-    res.statusCode = 200
-    res.setHeader('Content-type', 'text/html')
-    res.end(content)
-})
+app.get('/', (req, res) => {
+  res.send('Hello fellow developer!');
+});
 
-const fileNameOfUrl = (url) => {
-    let fileName = ''
-    if(url.split('/')[1] === ''){
-        fileName = 'index.html'
-    } else {
-        fileName = url.split('/')[1]
-    }
-    return fileName
-}
-
-const getFileOr404 = (fileName) => {
-    if(!fs.existsSync(`./static/${fileName}`)){
-        fileName = '404.html'
-    }
-    return fs.readFileSync(`./static/${fileName}`, 'utf-8')
-}
-
-const hostname = 'localhost'
 const port = 3000
-
-server.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`)
-})
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}/`);
+});
