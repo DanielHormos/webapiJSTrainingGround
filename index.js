@@ -2,8 +2,8 @@ const http = require('http')
 
 const server = http.createServer((req, res) => {
     res.statusCode = 200
-    res.setHeader('Content-type', 'text/plain')
-    res.end('Hello fellow developer!')
+    res.setHeader('Content-type', 'text/html')
+    res.end('<h1>Hello fellow developer!</h1>')
 })
 
 const hostname = 'localhost'
