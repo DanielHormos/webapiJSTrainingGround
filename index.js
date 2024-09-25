@@ -14,8 +14,12 @@ const db = [
     }
 ]
 
-app.get('/api/developers', (req, res) => {
-  res.json(db)
+app.get('/api/developers/:id', (req, res) => {
+    const dev = db.find(dev => dev.id == req.params.id)
+    if(!dev){
+        res.status(404).end()
+        return
+    } res.json(dev)
 });
 
 const port = 3000
