@@ -14,10 +14,17 @@ const db = [
     }
 ]
 
+app.use(express.json())
+
 app.get('/api/developers/:id', (req, res) => {
     const dev = db.find(dev => dev.id == req.params.id)
     return dev ? res.json(dev) : res.status(404).end()
 });
+
+app.post('/api/developers/', (req, res) => {
+    console.log(req.body)
+    res.status(201).end()
+})
 
 const port = 3000
 app.listen(port, () => {
