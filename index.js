@@ -16,10 +16,7 @@ const db = [
 
 app.get('/api/developers/:id', (req, res) => {
     const dev = db.find(dev => dev.id == req.params.id)
-    if(!dev){
-        res.status(404).end()
-        return
-    } res.json(dev)
+    return dev ? res.json(dev) : res.status(404).end()
 });
 
 const port = 3000
