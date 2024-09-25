@@ -1,9 +1,12 @@
 const http = require('http')
+const fs = require('fs')
 
 const server = http.createServer((req, res) => {
+    const content = fs.readFileSync('./static/index.html', 'utf-8')
+
     res.statusCode = 200
     res.setHeader('Content-type', 'text/html')
-    res.end('<h1>Hello fellow developer!</h1>')
+    res.end(content)
 })
 
 const hostname = 'localhost'
