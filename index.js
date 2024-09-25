@@ -1,13 +1,21 @@
 const express = require('express');
 const app = express();
 
-app.get('/', (req, res) => {
-    const dev = {
+const db = [
+    {
         id: 1,
         name: 'Daniel Dev',
         email: 'Daniel.Hormos@outlook.com'
+    },
+    {
+        id: 2,
+        name: 'Ali dev',
+        email: 'ali@yahoo.se'
     }
-  res.json(dev);
+]
+
+app.get('/api/developers', (req, res) => {
+  res.json(db)
 });
 
 const port = 3000
