@@ -5,13 +5,12 @@ const server = http.createServer((req, res) => {
     console.log(`The URL for the request was '${req.url}'`)
     console.log(`The Method for the request was '${req.method}'`)
 
-    if (req.url === '/favicon.ico') {
-        res.writeHead(204, { 'Content-Type': 'image/x-icon' })
-        res.end()
+    const fileName = fileNameOfUrl(req.url)
+    if(fileName === 'favicon.ico'){
+        res.statusCode = 404
+        res.end('')
         return
     }
-
-    const fileName = fileNameOfUrl(req.url)
     const content = fs.readFileSync(`./static/${fileName}`, 'utf-8')
     
     res.statusCode = 200
