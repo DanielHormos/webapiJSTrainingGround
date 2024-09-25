@@ -1,6 +1,12 @@
 const express = require('express');
 const app = express();
 
+const saltLogger = function (req, res, next) {
+    console.log(`salt> ${req.method} - ${req.url}`)
+    next()
+}
+
+app.use(saltLogger)
 app.use(express.static('static'))
 
 app.get('/', (req, res) => {
