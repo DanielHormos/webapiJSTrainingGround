@@ -3,14 +3,10 @@ const app = express();
 
 const db = [
     {
-        id: 1,
-        name: 'Daniel Dev',
-        email: 'Daniel.Hormos@outlook.com'
+        id: 1, name: 'Daniel Dev', email: 'Daniel.Hormos@outlook.com'
     },
     {
-        id: 2,
-        name: 'Ali dev',
-        email: 'ali@yahoo.se'
+        id: 2, name: 'Ali dev', email: 'ali@yahoo.se'
     }
 ]
 
@@ -38,7 +34,18 @@ app.post('/api/developers/', (req, res) => {
       .status(201)
       .setHeader('location', `/api/developers/${newDeveloper.id}`)
       .json(newDeveloper);
-  });
+});
+
+app.delete('/api/developers/:id', (req, res) => {
+    const userId = parseInt(req.params.id)
+    const userIndex = db.findIndex(d => d.id === userId)
+
+    if(userIndex !== -1){
+        db.splice(userIndex, 1)
+        res.send(db)
+    }
+    res.status(204).send('Users Not found')
+})
 
 const port = 3000
 app.listen(port, () => {
