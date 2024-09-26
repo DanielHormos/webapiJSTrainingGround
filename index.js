@@ -47,6 +47,21 @@ app.delete('/api/developers/:id', (req, res) => {
     res.status(204).send('Users Not found')
 })
 
+app.patch('/api/developers/:id', (req, res) => {
+    const developerId = parseInt(req.params.id)
+    const {name, email} = req.body
+    const developer = db.find(d => d.id === developerId) 
+
+    if(developer){
+        developer.name = name
+        developer.email = email
+
+        res.send(db)
+    } else {
+        res.status(404).send('Developer not found')
+    }
+})
+
 const port = 3000
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);
